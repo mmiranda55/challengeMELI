@@ -11,7 +11,7 @@ struct ProductListView: View {
                         ProductDetailView()
                         .environmentObject(viewModel)
                 ) {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 16) {
                         Text(product.title)
                             .font(.body)
                             .truncationMode(.tail)
@@ -20,12 +20,12 @@ struct ProductListView: View {
                                 .font(.headline)
                             Spacer()
                             if product.shipping.free_shipping {
-                                Text("Envio gratis")
+                                Text(.freeShipping)
                                     .font(.caption)
                                     .foregroundColor(Color.accentColor)
-                                    .padding(5)
+                                    .padding(8)
                                     .background(Color.accentColor.opacity(0.2))
-                                    .cornerRadius(5)
+                                    .cornerRadius(8)
                                 }
                         }
                     }
