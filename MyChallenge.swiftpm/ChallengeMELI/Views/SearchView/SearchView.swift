@@ -4,21 +4,31 @@ struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                NavigationLink(
-                    destination:
-                        ProductListView()
-                        .environmentObject(viewModel),
-                    isActive: $viewModel.isShowingProductList,
-                    label: { EmptyView() })
-                
-                Text("¿Buscando algo en particular?")
-                    .font(.headline)
-                    .foregroundColor(Color.accentColor)
-                    .padding()
-                SearchBar(text: $viewModel.searchText,
-                          onSearch: viewModel.searchProducts)
+        ZStack(alignment: .center) {
+            NavigationStack {
+                VStack {
+                    Text(.titleSearch)
+                        .padding()
+                        .font(.headline)
+                        .foregroundColor(Color.accentColor)
+                    
+                    SearchBar(text: $viewModel.searchText,
+                              onSearch: viewModel.searchProducts)
+                    
+                    NavigationLink(
+                        destination:
+                            ProductListView()
+                            .environmentObject(viewModel),
+                        isActive: $viewModel.isShowingProductList,
+                        label: { EmptyView() })
+                }
+            }
+            if viewModel.isShowingAlert {
+                AlertView(isActive: $viewModel.isShowingAlert,
+                          title: .errorTitle, 
+                          message: viewModel.errorMessage ?? .errorMessage,
+                          buttonTitle: .accept)
+                    .transition(AnyTransition.opacity.animation(.easeInOut))
             }
         }
     }
