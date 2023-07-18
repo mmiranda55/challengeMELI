@@ -5,6 +5,8 @@ class SearchViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var products: [Product] = []
     @Published var isShowingProductList = false
+    @Published var isShowingAlert = false
+    @Published var errorMessage: String? = nil
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -30,11 +32,13 @@ class SearchViewModel: ObservableObject {
                     break
                 case .failure(let error):
                     print("Error en la solicitud: \(error.localizedDescription)")
+                    self.isShowingAlert = true
+                    self.errorMessage = error.localizedDescription
                 }
             } receiveValue: { result in
                 self.products = result.results
                 if result.results.isEmpty {
-                    print("No se encontraron resultados")
+                    self.isShowingAlert = true
                 } else {
                     self.isShowingProductList = true
                 }
