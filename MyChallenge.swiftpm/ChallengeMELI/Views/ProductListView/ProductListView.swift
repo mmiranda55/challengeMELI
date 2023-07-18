@@ -16,6 +16,8 @@ struct ProductListView: View {
                             .font(.body)
                             .truncationMode(.tail)
                         HStack {
+                            Text("$" + String(formatNumber(product.price)))
+                                .font(.headline)
                             Spacer()
                             if product.shipping.free_shipping {
                                 Text("Envio gratis")
@@ -34,3 +36,14 @@ struct ProductListView: View {
     }
 }
 
+extension ProductListView {
+    
+    func formatNumber(_ number: Double) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = "."
+        numberFormatter.decimalSeparator = ","
+        
+        return numberFormatter.string(from: NSNumber(value: number)) ?? ""
+    }
+}
