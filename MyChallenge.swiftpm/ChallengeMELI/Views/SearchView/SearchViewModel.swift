@@ -11,7 +11,9 @@ class SearchViewModel: ObservableObject {
     func searchProducts() {
         let baseURL = "https://api.mercadolibre.com/sites/MLA/search"
         let queryParams = "?q=\(searchText)"
-        let urlString = baseURL + queryParams
+        let urlString = (baseURL + queryParams).addingPercentEncoding(
+            withAllowedCharacters: .urlQueryAllowed
+        ) ?? ""
         
         guard let url = URL(string: urlString) else {
             print("URL invalida")

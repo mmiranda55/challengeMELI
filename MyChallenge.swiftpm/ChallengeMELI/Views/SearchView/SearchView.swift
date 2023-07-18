@@ -4,7 +4,7 @@ struct SearchView: View {
     @EnvironmentObject private var viewModel: SearchViewModel
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 NavigationLink(
                     destination:
@@ -23,6 +23,7 @@ struct SearchView: View {
         }
     }
 }
+
 struct SearchBar: View {
     @Binding var text: String
     var onSearch: () -> Void
@@ -30,17 +31,13 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             TextField("Buscar...", text: $text)
-                .overlay(
-                    Image(systemName: "xmark.circle.fill")
-                        .padding()
-                        .offset(x: 10)
-                        .foregroundColor(Color.accentColor)
-                        .opacity(text.isEmpty ? 0.0 : 1.0)
-                        .onTapGesture {
-                            text = ""
-                        }
-                    , alignment: .trailing)
                 .onSubmit(onSearch)
+            Image(systemName: "xmark.circle.fill")
+                .foregroundColor(Color.accentColor)
+                .opacity(text.isEmpty ? 0.0 : 1.0)
+                .onTapGesture {
+                    text = ""
+                }
             Image(systemName: "magnifyingglass")
                 .foregroundColor(text.isEmpty ? Color.secondary : Color.accentColor)
         }
