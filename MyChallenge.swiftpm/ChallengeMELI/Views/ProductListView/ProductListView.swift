@@ -19,7 +19,7 @@ struct ProductListView: View {
                             Text("$" + String(formatNumber(product.price)))
                                 .font(.headline)
                             Spacer()
-                            if product.shipping.free_shipping {
+                            if product.shipping.freeShipping {
                                 Text(.freeShipping)
                                     .font(.caption)
                                     .foregroundColor(Color.accentColor)
