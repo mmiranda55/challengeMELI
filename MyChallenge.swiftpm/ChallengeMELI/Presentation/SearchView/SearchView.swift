@@ -24,8 +24,8 @@ struct SearchView: View {
                 }
             }
             if viewModel.isShowingAlert {
-                AlertView(isActive: $viewModel.isShowingAlert,
-                          title: .errorTitle, 
+                AlertView(isActive: $viewModel.isShowingAlert, 
+                          title: .errorTitle,
                           message: viewModel.errorMessage ?? .errorMessage,
                           buttonTitle: .accept)
                     .transition(AnyTransition.opacity.animation(.easeInOut))
