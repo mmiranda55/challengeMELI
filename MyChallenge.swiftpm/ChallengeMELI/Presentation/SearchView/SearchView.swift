@@ -34,6 +34,7 @@ struct SearchView: View {
     }
 }
 
+// MARK: - Views
 struct SearchBar: View {
     @Binding var text: String
     var onSearch: () -> Void

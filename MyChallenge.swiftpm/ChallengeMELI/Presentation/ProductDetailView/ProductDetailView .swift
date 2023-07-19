@@ -7,65 +7,81 @@ struct ProductDetailView: View {
     var body: some View {
         ZStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 16) {
-                let http = selectedProduct.thumbnail
-                let https = "https" + http.dropFirst(4)
-                    
-                AsyncImage(url: URL(string: https)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    ProgressView()
-                }
-                .frame(width: 100, height: 100)
+                ProductImageView(urlString: selectedProduct.thumbnail)
                 
                 Text(selectedProduct.title)
                     .font(.headline)
                 
-                HStack {
-                    Text(.available + String(selectedProduct.availableQuantity))
-                        .font(.caption)
-                    
-                    Spacer()
-                    
-                    Text(.sold + String(selectedProduct.soldQuantity))
-                        .font(.caption)
-                }
-                        
-                    HStack {
-                        Text("$" + NumberUtils.formatNumber(selectedProduct.price))
-                            .font(.title)
-                            .bold()
-                            .foregroundColor(Color.accentColor)
-                            
-                            Spacer()
-                            
-                    }
-                HStack {
-                    if selectedProduct.mercadoPagoAvailable {
-                        Text(.mercadoPagoAvailable)
-                            .font(.caption)
-                            .foregroundColor(Color.accentColor)
-                            .padding(8)
-                            .background(Color.accentColor.opacity(0.2))
-                            .cornerRadius(8)
-                    }
-                    
-                    Spacer()
-                    
-                    if selectedProduct.shipping.freeShipping {
-                        Text(.freeShipping)
-                            .font(.caption)
-                            .foregroundColor(Color.accentColor)
-                            .padding(8)
-                            .background(Color.accentColor.opacity(0.2))
-                            .cornerRadius(8)
-                    }
-                }
+                QuantityView(selectedProduct: selectedProduct)
+                
+                PriceView(selectedProduct: selectedProduct)
+                
+                AdditionalInfoView(selectedProduct: selectedProduct)
                 
                 Spacer()
             }
             .padding()
-       }
+        }
+    }
+}
+
+// MARK: - Views
+
+struct QuantityView: View {
+    let selectedProduct: Product
+    
+    var body: some View {
+        HStack {
+            Text(.available + String(selectedProduct.availableQuantity))
+                .font(.caption)
+            
+            Spacer()
+            
+            Text(.sold + String(selectedProduct.soldQuantity))
+                .font(.caption)
+        }
+    }
+}
+
+struct PriceView: View {
+    let selectedProduct: Product
+    
+    var body: some View {
+        HStack {
+            Text("$" + NumberUtils.formatNumber(selectedProduct.price))
+                .font(.title)
+                .bold()
+                .foregroundColor(Color.accentColor)
+            
+            Spacer()
+        }
+    }
+}
+
+struct AdditionalInfoView: View {
+    let selectedProduct: Product
+    
+    var body: some View {
+        HStack {
+            if selectedProduct.mercadoPagoAvailable {
+                Text(.mercadoPagoAvailable)
+                    .font(.caption)
+                    .foregroundColor(Color.accentColor)
+                    .padding(8)
+                    .background(Color.accentColor.opacity(0.2))
+                    .cornerRadius(8)
+            }
+            
+            Spacer()
+            
+            if selectedProduct.shipping.freeShipping {
+                Text(.freeShipping)
+                    .font(.caption)
+                    .foregroundColor(Color.accentColor)
+                    .padding(8)
+                    .background(Color.accentColor.opacity(0.2))
+                    .cornerRadius(8)
+            }
+        }
     }
 }
