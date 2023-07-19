@@ -35,7 +35,7 @@ struct AlertView: View {
             }
             .fixedSize(horizontal: false, vertical: true)
             .padding()
-            .background(.white)
+            .background()
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .shadow(radius: 20)
             .padding(30)
@@ -47,11 +47,5 @@ struct AlertView: View {
         withAnimation(.easeInOut) {
             isActive = false
         }
-    }
-}
-
-struct AlertView_Previews: PreviewProvider {
-    static var previews: some View {
-        AlertView(isActive: .constant(true), title: "", message: "", buttonTitle: "")
     }
 }
