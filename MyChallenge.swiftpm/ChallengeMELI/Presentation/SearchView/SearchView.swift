@@ -28,7 +28,7 @@ struct SearchView: View {
                           title: .errorTitle,
                           message: viewModel.errorMessage ?? .errorMessage,
                           buttonTitle: .accept)
-                    .transition(AnyTransition.opacity.animation(.easeInOut))
+                .transition(AnyTransition.opacity.animation(.easeInOut))
             }
         }
     }
